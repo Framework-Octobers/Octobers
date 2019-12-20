@@ -1,0 +1,266 @@
+/* 基本的な機能の実装 */
+/* main,header,buttonをまとめました */
+
+#main {
+	margin-right: auto;
+	margin-left: auto;
+	width: 95%;
+}
+
+/* ヘッダーの装飾 */
+header{
+	background-color: green;
+	padding-top: 16px;
+	padding-bottom: 16px;
+}
+
+.rogo{
+	color: red;
+	font-size: 30px;
+	display: inline-block;
+	padding-right: 20px;
+}
+
+header ul li form .cs-div{
+	padding-top: 2px;
+	padding-bottom: 4px;
+}
+
+header ul li form .txt-keywords{
+	padding-top: 2px;
+	margin-left: 10px;
+    margin-right: 10px;
+}
+
+header ul{
+    line-height: 40px;
+    margin: 0px;
+}
+
+header li{
+    list-style: none;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: inline-block;
+}
+
+header ul li form{
+	margin: 0px;
+}
+
+.txt-keywords{
+	border-radius:100px;
+	padding: 5px;
+}
+
+/* ボタンの装飾 */
+.submit_btn_box {
+	display : block;
+	padding-left : 47%;
+	margin: auto;
+	float : left;
+}
+
+.submit_btn {
+    border-radius:100px;
+    width:100px;
+	height : 35px;
+    font-size:10px;
+    color: white;
+    background: green;
+}
+
+/* 決済ボタン */
+.submit_btn_box_cart{
+	display : block;
+	padding-left: 30%;
+	padding-right: 40%;
+	margin: auto;
+	float : left;
+}
+
+.submit_btn:active{
+	background: green;
+}
+
+.submit_btn:disabled{
+    border-color: #4b7ea1;
+    background: #7fff00;
+	opacity: 0.5;
+}
+
+
+.box{
+	width : 90%;
+	display : block;
+	margin-top : 5px;
+	margin-bottom : 5px;
+	margin-left : 3%;
+	float : left;
+/* 	font-size: 15px; */
+}
+
+/* カート機能 */
+h2{
+	width : 	90%;
+	color: #5e5e5e;
+	margin-left : 3%;
+	margin-right : 3%;
+	padding: 0.5em 0;
+}
+
+#DeleteCartAction{
+	margin: 0;
+}
+
+.total_price{
+	width : 	85%;
+	color: #5e5e5e;
+	margin-left : 3%;
+	margin-right : 3%;
+	padding: 0.5em 0;
+	text-align: right;
+}
+
+/* 画像の装飾 */
+table.product-list-table{
+	margin: 0 auto;
+	width: 90%;
+}
+
+table.product-list-table td{
+	width: 30%;
+	height: 300px;
+	text-align: center;
+}
+
+
+/* メッセージの装飾 */
+h1 {
+	text-align:center;
+	color:#0000FF;
+	margin-top:3vh;
+	margin-bottom:2vh;
+	padding-top:2vh;
+	padding-bottom:2vh;
+	border-top: solid 2px #5989cf;
+    border-bottom: solid 2px #5989cf;
+}
+.messageError {
+	text-align:center;
+	color:white;
+	background-color:#FFCCFF;
+	margin-top: 3vh;
+	margin-left: 3vw;
+	margin-right: 3vw;
+	margin-bottom: 3vh;
+	padding-top:2vh;
+	padding-bottom:2vh;
+	font-weight: bold;
+	border: solid 1px #FF0066;
+}
+.messageResult {
+	text-align:center;
+	color:white;
+	background-color:#00FFFF;
+	margin-top: 3vh;
+	margin-left: 3vw;
+	margin-right: 3vw;
+	margin-bottom: 3vh;
+	padding-top:2vh;
+	padding-bottom:2vh;
+	font-weight: bold;
+	border: solid 1px #0000FF;
+}
+.messageSuccess {
+	text-align:center;
+	color:white;
+	background-color:#43FF6B;
+	margin-top: 3vh;
+	margin-left: 3vw;
+	margin-right: 3vw;
+	margin-bottom: 3vh;
+	padding-top:2vh;
+	padding-bottom:2vh;
+	font-weight: bold;
+	border: solid 1px #00DD00;
+}
+
+
+
+/* 商品詳細情報の装飾 */
+.column-container{
+	height: 350px;
+	padding-top: 50px;
+}
+
+.left {
+	float:left;
+}
+
+.left img{
+	height:300px;
+	width:300px;
+	margin: 0px 50px 0px 30px;
+}
+
+.right{
+	float:left;
+	hegith:180px;
+}
+
+.vertical-list-table-mini{
+	border-collapse: collapse;
+}
+
+.vertical-list-table-mini th{
+	background-color:green;
+	color:white;
+	text-align:left;
+	padding:5px;
+	border: solid 1px gray;
+}
+
+.vertical-list-table-mini td{
+	padding:5px;
+	border: solid 1px gray;
+}
+
+.product-details-recommend-box{
+	clear:both;
+	margin-top:20px;
+	text-align:center;
+}
+
+.product-details-recommend-box h2{
+	color:green;
+	font-weight:normal;
+}
+
+.recommend-box{
+	display:inline-block;
+	margin:15px 20px;
+	width:200px;
+}
+
+.recommend-box a {
+	text-decoration:none;
+	color:black;
+}
+
+.recommend-box img{
+/* 	height:20%; */
+/* 	width:35%; */
+}
+
+.item-image-box-100{
+	height: 20%;
+	width: 35%;
+}
+
+/* 商品一覧の装飾 */
+.itemlist-img{
+	width: 30%;
+	height: 45%;
+	padding: 50px;
+}

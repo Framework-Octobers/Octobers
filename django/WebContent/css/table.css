@@ -1,0 +1,57 @@
+/* table_tate,table,yoko‚ð‚Ü‚Æ‚ß‚Ü‚µ‚½ */
+
+/* table_tate */
+table.vertical-list-table {
+	width: 90%;
+}
+
+table.vertical-list-table th {
+	width:25%;
+	height:40px;
+	padding: 10px;
+	text-align: left;
+	border: 1px solid silver;
+	background-color: green;
+	color:white;
+}
+
+table.vertical-list-table td {
+	padding: 10px;
+}
+
+table.vertical-list-table, th, td {
+	margin : 3%;
+	border-collapse: collapse;
+	border: 1px solid silver;
+}
+
+.txt{
+	width: 95%;
+	height: 2em; 
+	padding: 0 15px;
+	background-color: oldlace;
+}
+
+/* table_yoko */
+table.horizontal-list-table{
+	line-height: 25px;
+	font-size: 15px;
+	border-collapse: collapse;
+	width: 80%;
+	margin: 0 auto;
+	padding: 5%;
+}
+table.horizontal-list-table th{
+	text-align: center;
+	border: 1px solid silver;
+	padding: 10px;
+	color: white;
+	background-color: green;
+}
+table.horizontal-list-table td{
+	text-align: left;
+	border: 1px solid silver;
+	margin: 40px;
+	padding: 10px;
+	padding-left: 10px;
+}
