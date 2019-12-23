@@ -148,6 +148,3 @@ insert into product_info values
 ( 18, 18,"エコバッグ","えこばっぐ","エコバッグの商品詳細",5,1000,"./images","ecobag_empty.png",now(),"発売会社",1,now(),now()),
 ( 19, 19,"スマートフォン","すまーとふぉん","スマートフォンの商品詳細",5,110000,"./images","smartphone.png",now(),"発売会社",1,now(),now()),
 ( 20, 20,"タブレットPC","たぶれっとぴーしー","タブレットPCの商品詳細",5,50000,"./images","computertablet.png",now(),"発売会社",1,now(),now());
-insert into destination_info values
-(1,"guest","インターノウス","テストユーざー","いんたーのうす","てすとゆーざー","guest@internous.co.jp","080-1234-5678","東京都千代田区三番町１ー１　ＫＹ三番町ビル１Ｆ",now(),now());
-

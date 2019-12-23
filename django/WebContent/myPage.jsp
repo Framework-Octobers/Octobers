@@ -49,6 +49,11 @@
 				<s:submit value="購入履歴" class="submit_btn"/>
 				</div>
 			</s:form>
+			<s:form action="UnsubscribeAction">
+				<div class="submit_btn_box">
+				<s:submit value="退会する" class="submit_btn"/>
+				</div>
+			</s:form>
 
 		<s:else>
 			<div class="error">

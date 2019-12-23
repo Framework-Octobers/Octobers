@@ -131,5 +131,26 @@
 		<action name="LogoutAction" class="com.internousdev.django.action.LogoutAction" method = "execute">
 					<result name="success">index.jsp</result>
 		</action>
+
+		<!-- 退会機能 -->
+		<!-- UnsubscribeAction -->
+		<action name="UnsubscribeAction" class="com.internousdev.django.action.UnsubscribeAction"
+		method="execute">
+			<result name="success">unsubscribe.jsp</result>
+		</action>
+
+		<!-- UnsubscribeConfirmAction -->
+		<action name="UnsubscribeConfirmAction" class="com.internousdev.django.action.UnsubscribeConfirmAction"
+		method="execute">
+			<result name="success">unsubscribeConfirm.jsp</result>
+		</action>
+
+		<!-- UnsubscribeCompleteAction -->
+		<action name="UnsubscribeCompleteAction" class="com.internousdev.django.action.UnsubscribeCompleteAction"
+		method="execute">
+			<result name="success">unsubscribeComplete.jsp</result>
+			<result name="error">unsubscribeConfirm.jsp</result>
+			<result name="loginError">sessionerror.jsp</result>
+		</action>
 	</package>
 </struts>

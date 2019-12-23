@@ -28,13 +28,14 @@ public class SearchItemAction extends ActionSupport implements SessionAware {
 			keywords = "";
 		} else {
 			InputChecker inputChecker = new InputChecker();
-			keywordsErrorMessageList = inputChecker.doCheck("検索ワード", keywords,0,50, true, true, true, true, true, true);
+			keywordsErrorMessageList = inputChecker.doCheck("検索ワード", keywords, 0, 50, true, true, true, true, true,
+					true);
 
 			if (keywordsErrorMessageList.size() > 0) {
 				return SUCCESS;
 			}
 
-			keywords = keywords. replaceAll("　", " "). replaceAll("\\s{2,}", " ").trim();
+			keywords = keywords.replaceAll("　", " ").replaceAll("\\s{2,}", " ").trim();
 		}
 
 		if (categoryId == null) {
@@ -48,7 +49,8 @@ public class SearchItemAction extends ActionSupport implements SessionAware {
 			break;
 
 		default:
-			productInfoDTOList = productInfoDAO.getProductInfoListByCategoryIdAndKeyword(categoryId, keywords.split(" "));
+			productInfoDTOList = productInfoDAO.getProductInfoListByCategoryIdAndKeyword(categoryId,
+					keywords.split(" "));
 			break;
 		}
 
