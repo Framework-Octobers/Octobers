@@ -14,7 +14,7 @@ public class DeleteDestinationAction  extends ActionSupport implements SessionAw
 	private Map<String,Object> session;
 	private int id;
 	private String userId;
-	private boolean listFlg;
+	private boolean listFlg; 
 	private DestinationInfoDAO destinationDAO = new DestinationInfoDAO();
 	private ArrayList<DestinationInfoDTO> destinationList = new ArrayList <DestinationInfoDTO>();
 
@@ -34,7 +34,8 @@ public class DeleteDestinationAction  extends ActionSupport implements SessionAw
 		if (result > 0){
 			destinationList = null;
 			if (loginFlg == 1) {
-				destinationList = destinationDAO.getDestinationInfo(session.get("userId").toString());
+				boolean deleteFlg = true;
+				destinationList = destinationDAO.getDestinationInfo(session.get("userId").toString(), deleteFlg);
 				int list_add_all = destinationList.size();
 				if (list_add_all == 0) {
 					//リストのためのフラグです ログインのフラグとは違います。
@@ -50,45 +51,45 @@ public class DeleteDestinationAction  extends ActionSupport implements SessionAw
 		}
 			return ERROR;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
-	
+
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	public String getUserId() {
 		return userId;
 	}
-	
+
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	
+
 	//destinationList の名前間違え注意
 	public ArrayList<DestinationInfoDTO> getDestinationList() {
 		return destinationList;
 	}
-	
+
 	//destinationList の名前間違え注意
 	public void setDestinationList( ArrayList<DestinationInfoDTO> destinationList) {
 		this.destinationList = destinationList;
 	}
-	
+
 	public Map<String,Object> getSession() {
 		return session;
 	}
-	
+
 	public void setSession(Map<String ,Object> session) {
 		this.session= session;
 	}
-	
+
 	public boolean getListFlg() {
 		return listFlg;
 	}
-	
+
 	public void setListFlg(boolean listFlg) {
 		this.listFlg=listFlg;
 	}

@@ -88,6 +88,7 @@ first_name_kana varchar(32) not null comment "名かな",
 email varchar(32) comment "メールアドレス",
 tel_number varchar(13) comment "電話番号",
 user_address varchar(50) not null comment "住所",
+delete_flg boolean  not null comment "デリートフラグ",
 regist_date datetime  not null comment"登録日時",
 update_date datetime comment "更新日時",
 foreign key(user_id) references user_info(user_id)

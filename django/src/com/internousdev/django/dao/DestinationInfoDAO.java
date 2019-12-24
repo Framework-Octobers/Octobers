@@ -13,19 +13,20 @@ public class DestinationInfoDAO {
 	/*
 	 * 				宛先情報の取得機能
 	 */
-	public ArrayList<DestinationInfoDTO> getDestinationInfo(String userId)  {
+	public ArrayList<DestinationInfoDTO> getDestinationInfo(String userId, boolean deleteFlg)  {
 		DBConnector db = new DBConnector();
 		Connection con = db.getConnection();
 		ArrayList<DestinationInfoDTO> destinationList = new ArrayList<DestinationInfoDTO>();
 
 		String sql = "SELECT id, user_id, family_name, first_name, family_name_kana, first_name_kana,"
 				+ " user_address, tel_number, email,regist_date"
-				+ " from destination_info WHERE user_id = ? ORDER BY regist_date ASC ";
+				+ " from destination_info WHERE user_id = ? && delete_Flg = ? ORDER BY regist_date ASC ";
 
 		try{
 			PreparedStatement ps = con.prepareStatement(sql);
 
 			ps.setString(1, userId);
+			ps.setBoolean(2, deleteFlg);
 			ResultSet rs = ps.executeQuery();
 
 			while(rs.next()) {
@@ -59,15 +60,14 @@ public class DestinationInfoDAO {
 	 * 宛先登録機能
 	 */
 	public int createDestination(String userId, String familyName, String firstName,String familyNameKana,
-			String firstNameKana,String email, String userAddress,String telNumber) {
+			String firstNameKana,String email, String userAddress,String telNumber, boolean deleteFlg) {
 
 		DBConnector db = new DBConnector();
 		Connection con = db.getConnection();
 		int count= 0;
 		String sql = "INSERT INTO destination_info ( user_id, family_name, first_name, family_name_kana,"
-				+ " first_name_kana, email, tel_number, user_address, regist_date, update_date)"
-				+ " VALUES(?,?,?,?,?,?,?,?, now(), now())";
-
+				+ " first_name_kana, email, tel_number, user_address, regist_date, update_date,  delete_flg)"
+				+ " VALUES(?,?,?,?,?,?,?,?, now(), now(),?)";
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, userId);
@@ -78,6 +78,7 @@ public class DestinationInfoDAO {
 			ps.setString(6, email);
 			ps.setString(7, telNumber);
 			ps.setString(8, userAddress);
+			ps.setBoolean(9, deleteFlg);
 			count = ps.executeUpdate();
 
 		} catch(SQLException e) {
@@ -101,16 +102,16 @@ public class DestinationInfoDAO {
 		DBConnector db = new DBConnector();
 		Connection con = db.getConnection();
 
-		String sql = "DELETE FROM destination_info  WHERE id=?";
+		String sql = "UPDATE destination_info SET delete_Flg = false WHERE id = ?";
 		PreparedStatement ps;
 		int result = 0;
-		try {
-			ps= con.prepareStatement(sql);
+		try{
+			ps = con.prepareStatement(sql);
 			ps.setInt(1, destinationId);
 			result = ps.executeUpdate();
-		} catch(SQLException e){
+		} catch(SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			try {
 				con.close();
 			} catch(SQLException e) {
@@ -118,7 +119,6 @@ public class DestinationInfoDAO {
 			}
 		}
 		return result;
-
 	}
 
 }

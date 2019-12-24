@@ -26,7 +26,8 @@ public class SettlementConfirmAction extends ActionSupport implements SessionAwa
 			return "loginError";
 		}else{
 			//userIdを使い宛先情報を取得しリストを作成
-			destinationList=destinationDao.getDestinationInfo(session.get("userId").toString());
+			boolean deleteFlg = true;
+			destinationList=destinationDao.getDestinationInfo(session.get("userId").toString(), deleteFlg);
 			int list_add_all=destinationList.size();
 			/*
 			 * カートの中身があるかどうか判定できるようにする。
