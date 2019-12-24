@@ -142,4 +142,12 @@ public class PurchaseHistoryInfoDAO {
 		}
 		return count;
 	}
+	
+	public List<PurchaseHistotyInfoDTO> OnebuySupportPurcahse(int destinationId) {
+		DBConnector db = new DBConnector();
+		Connection con = db.getConnection(); 
+		
+		String sql = "SELECT * FROM purchase_history_info (user_Id, product_id, product_count ,price, destination_id)"
+		
+	}
 }
