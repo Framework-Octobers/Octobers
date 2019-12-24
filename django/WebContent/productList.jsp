@@ -7,6 +7,19 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="./css/style.css">
 	<title>商品一覧</title>
+	<script type="text/javascript">
+		function screenChange(){
+			//プルで選択した、value値を取得する
+		    document.form.productSort.value = document.form.select.selectedIndex;
+
+			//javaScriptを使用し、formタグの中身を送信
+		    document.form.submit();
+		}
+
+		function setAction(url){
+			document.getElementById("form").action=url;
+		}
+	</script>
 </head>
 <body>
 	<jsp:include page="header.jsp" />
@@ -18,6 +31,15 @@
 			</div>
 		</s:if>
 		<s:elseif test="productInfoDTOList!=null && productInfoDTOList.size()>0">
+			<s:form name="form" action="SearchItemAction">
+			    <select name="select" onChange="screenChange()">
+			        <option value="">並べ替え</option>
+			        <option value="1">安い順</option>
+			        <option value="2">高い順</option>
+			        <option value="3">ランキング順</option>
+			    </select>
+			    <s:hidden name="productSort" value=""/>
+			</s:form>
 			<table class="product-list-table">
 				<s:iterator value="productInfoDTOList" status="st">
 					<s:if test="#st.index%3 == 0"><tr> </s:if>

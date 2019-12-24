@@ -18,39 +18,55 @@ public class SearchItemAction extends ActionSupport implements SessionAware {
 
 	private String categoryId;
 	private String keywords;
+	private int productSort;
 	private List<String> keywordsErrorMessageList;
 	private List<ProductInfoDTO> productInfoDTOList;
+	private List<ProductInfoDTO> productRankDTOList;
 	private Map<String, Object> session;
 
 	public String execute() {
 
-		if (StringUtils.isBlank(keywords)) {
-			keywords = "";
-		} else {
-			InputChecker inputChecker = new InputChecker();
-			keywordsErrorMessageList = inputChecker.doCheck("検索ワード", keywords, 0, 50, true, true, true, true, true,
-					true);
+		ProductInfoDAO productInfoDAO = new ProductInfoDAO();
 
-			if (keywordsErrorMessageList.size() > 0) {
-				return SUCCESS;
+		if (productSort == 0) {
+			if (StringUtils.isBlank(keywords)) {
+				keywords = "";
+			} else {
+				InputChecker inputChecker = new InputChecker();
+				keywordsErrorMessageList = inputChecker.doCheck("検索ワード", keywords,0,50, true, true, true, true, true, true);
+
+				if (keywordsErrorMessageList.size() > 0) {
+					return SUCCESS;
+				}
+				keywords = keywords. replaceAll("　", " "). replaceAll("\\s{2,}", " ").trim();
 			}
-
-			keywords = keywords.replaceAll("　", " ").replaceAll("\\s{2,}", " ").trim();
+			session.put("keywords", keywords);
+		} else {
+			keywords =  String.valueOf(session.get("keywords"));
 		}
 
+		if (productSort > 0) {
+			categoryId = String.valueOf(session.get("categoryId"));
+		} else if (categoryId == null) {
+			categoryId = "1";
+		}
+
+		session.put("categoryId", categoryId);
+
+		//ランキング用
+		if(productSort == 3) {
+			productRankDTOList = productInfoDAO.getProductInfoRank();
+		}
 		if (categoryId == null) {
 			categoryId = "1";
 		}
 
-		ProductInfoDAO productInfoDAO = new ProductInfoDAO();
 		switch (categoryId) {
 		case "1":
-			productInfoDTOList = productInfoDAO.getProductInfoListByKeyword(keywords.split(" "));
+			productInfoDTOList = productInfoDAO.getProductInfoListByKeyword(keywords.split(" "), productSort);
 			break;
-
 		default:
-			productInfoDTOList = productInfoDAO.getProductInfoListByCategoryIdAndKeyword(categoryId,
-					keywords.split(" "));
+			productInfoDTOList = productInfoDAO.getProductInfoListByCategoryIdAndKeyword(categoryId, keywords.split(" "),productSort);
 			break;
 		}
 
@@ -81,6 +97,14 @@ public class SearchItemAction extends ActionSupport implements SessionAware {
 		this.keywords = keywords;
 	}
 
+	public int getProductSort() {
+		return productSort;
+	}
+
+	public void setProductSort(int productSort) {
+		this.productSort = productSort;
+	}
+
 	public List<String> getKeywordsErrorMessageList() {
 		return keywordsErrorMessageList;
 	}
@@ -103,6 +127,14 @@ public class SearchItemAction extends ActionSupport implements SessionAware {
 
 	public void setSession(Map<String, Object> session) {
 		this.session = session;
+	}
+
+	public List<ProductInfoDTO> getProductRankDTOList() {
+		return productRankDTOList;
+	}
+
+	public void setProductRankDTOList(List<ProductInfoDTO> productRankDTOList) {
+		this.productRankDTOList = productRankDTOList;
 	}
 
 }

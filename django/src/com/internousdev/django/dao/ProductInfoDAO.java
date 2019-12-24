@@ -115,7 +115,7 @@ public class ProductInfoDAO {
 	 *            キーワードの配列
 	 * @return 商品情報のList
 	 */
-	public List<ProductInfoDTO> getProductInfoListByKeyword(String[] keywordsList) {
+	public List<ProductInfoDTO> getProductInfoListByKeyword(String[] keywordsList, int productSort) {
 		DBConnector dbConnector = new DBConnector();
 		Connection connection = dbConnector.getConnection();
 		List<ProductInfoDTO> productInfoDTOList = new ArrayList<ProductInfoDTO>();
@@ -136,7 +136,16 @@ public class ProductInfoDAO {
 				}
 			}
 		}
-		sql += " order by product_id asc";
+
+		if(productSort == 1) {
+			sql += " order by price asc";
+		}else if(productSort == 2){
+			sql += " order by price desc";
+		}else {
+			sql += " order by product_id asc";
+		}
+
+//		System.out.println(sql+"カテゴリーなし");
 
 		try {
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -177,7 +186,7 @@ public class ProductInfoDAO {
 	 *            キーワードの配列
 	 * @return 商品情報のList
 	 */
-	public List<ProductInfoDTO> getProductInfoListByCategoryIdAndKeyword(String categoryId, String[] keywordsList) {
+	public List<ProductInfoDTO> getProductInfoListByCategoryIdAndKeyword(String categoryId, String[] keywordsList, int productSort) {
 		DBConnector dbConnector = new DBConnector();
 		Connection connection = dbConnector.getConnection();
 		List<ProductInfoDTO> productInfoDTOList = new ArrayList<ProductInfoDTO>();
@@ -198,9 +207,20 @@ public class ProductInfoDAO {
 							+ keywordsList[i] + "%')";
 				}
 			}
+
 			sql += ")";
 		}
-		sql += " order by product_id asc";
+
+
+		if(productSort == 1) {
+			sql += " order by price asc";
+		}else if(productSort == 2){
+			sql += " order by price desc";
+		}else {
+			sql += " order by product_id asc";
+		}
+
+		System.out.println(sql+"カテゴリーあり");
 
 		try {
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -230,5 +250,49 @@ public class ProductInfoDAO {
 			}
 		}
 		return productInfoDTOList;
+	}
+
+	//商品の売り上げ個数を取得
+	public List<ProductInfoDTO> getProductInfoRank() {
+		DBConnector dbConnector = new DBConnector();
+		Connection connection = dbConnector.getConnection();
+		List<ProductInfoDTO> productRankDTOList = new ArrayList<ProductInfoDTO>();
+		// System.out.println(categoryId);
+		String sql = "select pi.product_id, pi.product_name, pi.product_name_kana, pi.product_description,"
+				+ " pi.category_id, pi.price, pi.image_file_path, pi.image_file_name, pi.release_date,"
+				+ " pi.release_company, sum(phi.product_count) as productPurchaseTotal from product_info as pi"
+				+ " right join purchase_history_info as phi on pi.product_id = phi.product_id group by pi.product_id"
+				+ " order by productPurchaseTotal DESC";
+
+		System.out.println(sql);
+
+		try {
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				ProductInfoDTO productRankDTO = new ProductInfoDTO();
+				productRankDTO.setProductId(resultSet.getInt("pi.product_id"));
+				productRankDTO.setProductName(resultSet.getString("pi.product_name"));
+				productRankDTO.setProductNameKana(resultSet.getString("pi.product_name_kana"));
+				productRankDTO.setProductDescription(resultSet.getString("pi.product_description"));
+				productRankDTO.setProductCategoryId(resultSet.getInt("pi.category_id"));
+				productRankDTO.setProductPrice(resultSet.getInt("pi.price"));
+				productRankDTO.setProductImageFilePath(resultSet.getString("pi.image_file_path"));
+				productRankDTO.setProductImageFileName(resultSet.getString("pi.image_file_name"));
+				productRankDTO.setProductReleaseDate(resultSet.getDate("pi.release_date"));
+				productRankDTO.setProductReleaseCompany(resultSet.getString("pi.release_company"));
+				productRankDTO.setProductPurchaseTotal(resultSet.getString("productPurchaseTotal"));
+				productRankDTOList.add(productRankDTO);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return productRankDTOList;
 	}
 }
